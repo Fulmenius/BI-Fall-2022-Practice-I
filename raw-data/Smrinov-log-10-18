@@ -1,0 +1,33 @@
+--2022-10-18 20:44:23--  https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/
+Résolution de ftp.ncbi.nlm.nih.gov (ftp.ncbi.nlm.nih.gov)… 130.14.250.12, 165.112.9.228
+Connexion à ftp.ncbi.nlm.nih.gov (ftp.ncbi.nlm.nih.gov)|130.14.250.12|:443… connecté.
+requête HTTP transmise, en attente de la réponse… 200 OK
+Taille : non indiqué [text/html]
+Enregistre : ‘wild-type-e-coli-sequence’
+
+     0K ..                                                      965K=0,003s
+
+2022-10-18 20:44:24 (965 KB/s) - ‘wild-type-e-coli-sequence’ enregistré [2693]
+
+--2022-10-18 20:47:07--  https://doi.org/10.6084/m9.figshare.10006541.v3
+Résolution de doi.org (doi.org)… 188.114.98.229, 188.114.99.229
+Connexion à doi.org (doi.org)|188.114.98.229|:443… connecté.
+requête HTTP transmise, en attente de la réponse… 302 Found
+Emplacement : https://figshare.com/articles/amp_res_2_fastq_zip/10006541/3 [suivant]
+--2022-10-18 20:47:07--  https://figshare.com/articles/amp_res_2_fastq_zip/10006541/3
+Résolution de figshare.com (figshare.com)… 46.137.131.113, 52.16.179.25
+Connexion à figshare.com (figshare.com)|46.137.131.113|:443… connecté.
+requête HTTP transmise, en attente de la réponse… 301 Moved Permanently
+Emplacement : https://figshare.com/articles/dataset/amp_res_2_fastq_zip/10006541/3 [suivant]
+--2022-10-18 20:47:07--  https://figshare.com/articles/dataset/amp_res_2_fastq_zip/10006541/3
+Réutilisation de la connexion existante à figshare.com:443.
+requête HTTP transmise, en attente de la réponse… 200 OK
+Taille : non indiqué [text/html]
+Enregistre : ‘e-coli-mutant-raw-illumina-sequencing-reads’
+
+     0K .......... .......... .......... .......... ..........  691K
+    50K .......... .......... .......... .......... ..........  735K
+   100K .......... .......... .......... .......... ........   5,97M=0,1s
+
+2022-10-18 20:47:08 (1000 KB/s) - ‘e-coli-mutant-raw-illumina-sequencing-reads’ enregistré [151863]
+

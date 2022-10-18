@@ -1,1 +1,4 @@
 10.18 20:28 Created the lab journal. V.M.
+20:35: mkdir raw data
+20:48 I'wgotten the wild type sequence and the mutant reads from their respective URL's. wget outputs
+are int the log file.

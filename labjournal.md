@@ -208,7 +208,7 @@ Then we did variant calling using the following command:
 ## Step 7. Variant annotation ##
 
 Database creation
-First, we created empty text file snpeff.config vith one string:
+First, we created empty text file snpEff.config vith one string:
 
 `k12.genome : ecoli_K12`
 

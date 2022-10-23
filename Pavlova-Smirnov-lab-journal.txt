@@ -2,3 +2,5 @@
 20:35: mkdir raw data
 20:48 I'wgotten the wild type sequence and the mutant reads from their respective URL's. wget outputs
 are int the log file.
+20:54 Pushed to origin/Srirnov-dev-0
+20:59 Apparently I don't know how to use wget since the file I've downloaded is an HTML document. Good job, me!

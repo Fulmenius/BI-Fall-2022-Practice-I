@@ -143,3 +143,148 @@ Anyway, the main aim of filtering which was to filter the reads with low quality
 
 **We decided to choose for ruther analysis the result of the filtering with lower quality threshold which were the files forward_20_paired.fq and reverse_20_paired.fq**
 
+
+
+## Step 5. Aligning sequences to reference ##
+
+Firslty, we neede to indexate the reference genome.
+For indexation we used `bwa index`. The command was
+
+` bwa index GCF_000005845.2_ASM584v2_genomic.fna.gz`
+
+After indexation the mentioned below files were created:
+
+*GCF_000005845.2_ASM584v2_genomic.fna.gz.amb*
+*GCF_000005845.2_ASM584v2_genomic.fna.gz.ann*
+*GCF_000005845.2_ASM584v2_genomic.fna.gz.bwt*
+*GCF_000005845.2_ASM584v2_genomic.fna.gz.pac*
+*GCF_000005845.2_ASM584v2_genomic.fna.gz.sa*
+
+
+After reference genome indezation we performed the alignment of out reads to the reference genome using `bwa mem`. We used the command:
+
+`bwa mem GCF_000005845.2_ASM584v2_genomic.fna.gz forward_20_paired.fq reverse_20_paired.fq > alignment.sam`
+
+Now the result of alignment is in the file *alignment.sam*.
+
+Then we compressed the .sam file to .bam file with the command:
+
+`samtools view -S -b alignment.sam > alignment.bam`
+
+and ran the command:
+
+`samtools flagstat alignment.bam` to see the basic alignment statistics.
+
+99.87% of reads were mapped.
+
+**Then we nedded to sort and index alignment.bam file**
+
+To sort the .bam file we performed the command:
+
+`samtools sort alignment.bam -o alignment_sorted.bam`
+
+To index the sorted .bam file we performed the command:
+
+`samtools index alignment_sorted.bam`
+
+Then we visualized the mapping in IGV. For reference genome, we had to gunzip it before uploading to IGV:
+
+`gunzip GCF_000005845.2_ASM584v2_genomic.fna.gz`
+
+## Step 6. Variant calling ##
+
+For variant calling we performed the command:
+
+`samtools mpileup -f GCF_000005845.2_ASM584v2_genomic.fna alignment_sorted.bam > my.mpileup`
+
+VarScan installation:
+
+`sudo apt install varscan`
+
+Then we did variant calling using the following command:
+
+`java -jar VarScan.v2.3.4.jar mpileup2snp my.mpileup --min-vae-freq N --variants --output-vcf 1 > VarScan_results.vcf`
+
+## Step 7. Variant annotation ##
+
+Database creation
+First, we created empty text file snpeff.config vith one string:
+
+`k12.genome : ecoli_K12`
+
+Then we created folder for the database:
+
+`mkdir -p data/k12`
+
+Then we put there the .gbk file and renamed it (file was taken from [here](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.gbff.gz)): 
+
+`gunzip GCF_000005845.2_ASM584v2_genomic.gbff.gz`
+`cp GCF_000005845.2_ASM584v2_genomic.gbff data/k12/genes.gbk`
+
+Then we created database
+
+`java -jar snpEff.jar build -genbank -v k12`
+
+After this we performed the annotation and redirected the StdOut to another .vcf file:
+
+`java -jar snpEff.jar ann k12 VarScan_results.vcf > VarScan_results_annotated.vcf`
+
+After that in our directory a new file *VarScan_results_annotated.vcf* appeared. We can upload it to IGV for obtaining more variant information.
+
+## Step 8. List of variants ##
+
+We found 6 variants:
+
+1. position 93043 C -> G (forward strand)
+
+GCC -> GGC
+
+Ala -> Gly
+
+gene name ftsI
+
+missense variant
+
+2. position 482698 A -> T (reverse strand)
+
+CAG -> CTG
+
+Gln -> Leu
+
+gene name acrB
+
+missense variant
+
+3. position 852762 A -> G 
+
+this variant is in non-coding region
+
+4. position 1905761 G -> A (forward strand)
+
+GGT -> GAT
+
+Gly -> Asp
+
+gene name mntP
+
+missense variant
+
+5. position 3535147 T -> G (reverse strand)
+
+GTA -> GGA
+
+Val -> Gly
+
+gene name envZ
+
+missense variant
+
+6. position 4390754 C -> A (reverse strand)
+
+GCC -> GCA
+
+Ala -> Ala 
+
+synonymous variant
+
+gene name rsgA

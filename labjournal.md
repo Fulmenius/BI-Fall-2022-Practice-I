@@ -201,9 +201,9 @@ VarScan installation:
 
 `sudo apt install varscan`
 
-Then we did variant calling using the following command:
+Then we did variant calling using the following command with allene frequence 50%:
 
-`java -jar VarScan.v2.3.4.jar mpileup2snp my.mpileup --min-vae-freq N --variants --output-vcf 1 > VarScan_results.vcf`
+`java -jar VarScan.v2.3.4.jar mpileup2snp my.mpileup --min-vae-freq 0.5 --variants --output-vcf 1 > VarScan_results.vcf`
 
 ## Step 7. Variant annotation ##
 

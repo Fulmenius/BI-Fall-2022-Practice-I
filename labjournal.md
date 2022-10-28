@@ -53,7 +53,7 @@ We used `zcat` so that we would not need to gunzip the reference genome. We used
 
 The contig is too big to fit in the terminal window, but it seems like there is only one contig in the file. It seems quite reasonable as long as bacterial genome is represented by a single circular chromosome. To make sure that in .fasta file of *E. coli* reference genome there is a single contig, we decided to count the number of symbols ">" in the file. Every single contig in .fasta files starts with the symbol ">" so the number of ">" equals to the number of contigs. We used the command:
 
-`zcat GCF_000005845.2_ASM584v2_genomic.fna.gz`
+`zcat GCF_000005845.2_ASM584v2_genomic.fna.gz | grep -c ">"`
 
 The result is 1, so reference genome is a single contig.
 
@@ -143,7 +143,13 @@ Anyway, the main aim of filtering which was to filter the reads with low quality
 
 **We decided to choose for ruther analysis the result of the filtering with lower quality threshold which were the files forward_20_paired.fq and reverse_20_paired.fq**
 
+After that we cheched again the number of reads in the trimmed forward and reverse redings files:
 
+`wc -l forward_20_paired.fq`
+
+`wc -l reverse_20_paired.fq`
+
+The result for both files was 1785036 lines in each. 1785036/4 = 446259 readings after trimming.
 
 ## Step 5. Aligning sequences to reference ##
 
@@ -201,9 +207,9 @@ VarScan installation:
 
 `sudo apt install varscan`
 
-Then we did variant calling using the following command with allene frequence 50%:
+Then we did variant calling using the following command with allene frequence 80%:
 
-`java -jar VarScan.v2.3.4.jar mpileup2snp my.mpileup --min-vae-freq 0.5 --variants --output-vcf 1 > VarScan_results.vcf`
+`java -jar VarScan.v2.3.4.jar mpileup2snp my.mpileup --min-vae-freq 0.8 --variants --output-vcf 1 > VarScan_results.vcf`
 
 ## Step 7. Variant annotation ##
 
